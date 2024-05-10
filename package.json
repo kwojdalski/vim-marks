@@ -1,7 +1,7 @@
 {
-  "name": "custom-marks",
-  "displayName": "custom-marks",
-  "description": "",
+  "name": "vim-marks",
+  "displayName": "vim-marks",
+  "description": "VIM-like marks",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.88.0"
@@ -14,19 +14,436 @@
   "contributes": {
     "commands": [
       {
-        "command": "custom-marks.create_mark",
-        "title": "custom-marks: create mark"
+        "command": "vim-marks.create_mark",
+        "title": "vim-marks: create mark"
       },
       {
-        "command": "custom-marks.jump_to_mark",
-        "title": "custom-marks: jump to mark"
+        "command": "vim-marks.jump_to_mark",
+        "title": "vim-marks: jump to mark"
+      },
+      {
+        "command": "vim-marks.create_mark_a",
+        "title": "vim-marks: create mark a"
+      },
+      {
+        "command": "vim-marks.create_mark_b",
+        "title": "vim-marks: create mark b"
+      },
+      {
+        "command": "vim-marks.create_mark_c",
+        "title": "vim-marks: create mark c"
+      },
+      {
+        "command": "vim-marks.create_mark_d",
+        "title": "vim-marks: create mark d"
+      },
+      {
+        "command": "vim-marks.create_mark_e",
+        "title": "vim-marks: create mark e"
+      },
+      {
+        "command": "vim-marks.create_mark_f",
+        "title": "vim-marks: create mark f"
+      },
+      {
+        "command": "vim-marks.create_mark_g",
+        "title": "vim-marks: create mark g"
+      },
+      {
+        "command": "vim-marks.create_mark_h",
+        "title": "vim-marks: create mark h"
+      },
+      {
+        "command": "vim-marks.create_mark_i",
+        "title": "vim-marks: create mark i"
+      },
+      {
+        "command": "vim-marks.create_mark_j",
+        "title": "vim-marks: create mark j"
+      },
+      {
+        "command": "vim-marks.create_mark_k",
+        "title": "vim-marks: create mark k"
+      },
+      {
+        "command": "vim-marks.create_mark_l",
+        "title": "vim-marks: create mark l"
+      },
+      {
+        "command": "vim-marks.create_mark_m",
+        "title": "vim-marks: create mark m"
+      },
+      {
+        "command": "vim-marks.create_mark_n",
+        "title": "vim-marks: create mark n"
+      },
+      {
+        "command": "vim-marks.create_mark_o",
+        "title": "vim-marks: create mark o"
+      },
+      {
+        "command": "vim-marks.create_mark_p",
+        "title": "vim-marks: create mark p"
+      },
+      {
+        "command": "vim-marks.create_mark_q",
+        "title": "vim-marks: create mark q"
+      },
+      {
+        "command": "vim-marks.create_mark_r",
+        "title": "vim-marks: create mark r"
+      },
+      {
+        "command": "vim-marks.create_mark_s",
+        "title": "vim-marks: create mark s"
+      },
+      {
+        "command": "vim-marks.create_mark_t",
+        "title": "vim-marks: create mark t"
+      },
+      {
+        "command": "vim-marks.create_mark_u",
+        "title": "vim-marks: create mark u"
+      },
+      {
+        "command": "vim-marks.create_mark_v",
+        "title": "vim-marks: create mark v"
+      },
+      {
+        "command": "vim-marks.create_mark_w",
+        "title": "vim-marks: create mark w"
+      },
+      {
+        "command": "vim-marks.create_mark_x",
+        "title": "vim-marks: create mark x"
+      },
+      {
+        "command": "vim-marks.create_mark_y",
+        "title": "vim-marks: create mark y"
+      },
+      {
+        "command": "vim-marks.create_mark_z",
+        "title": "vim-marks: create mark z"
+      },
+      {
+        "command": "vim-marks.create_mark_A",
+        "title": "vim-marks: create mark A"
+      },
+      {
+        "command": "vim-marks.create_mark_B",
+        "title": "vim-marks: create mark B"
+      },
+      {
+        "command": "vim-marks.create_mark_C",
+        "title": "vim-marks: create mark C"
+      },
+      {
+        "command": "vim-marks.create_mark_D",
+        "title": "vim-marks: create mark D"
+      },
+      {
+        "command": "vim-marks.create_mark_E",
+        "title": "vim-marks: create mark E"
+      },
+      {
+        "command": "vim-marks.create_mark_F",
+        "title": "vim-marks: create mark F"
+      },
+      {
+        "command": "vim-marks.create_mark_G",
+        "title": "vim-marks: create mark G"
+      },
+      {
+        "command": "vim-marks.create_mark_H",
+        "title": "vim-marks: create mark H"
+      },
+      {
+        "command": "vim-marks.create_mark_I",
+        "title": "vim-marks: create mark I"
+      },
+      {
+        "command": "vim-marks.create_mark_J",
+        "title": "vim-marks: create mark J"
+      },
+      {
+        "command": "vim-marks.create_mark_K",
+        "title": "vim-marks: create mark K"
+      },
+      {
+        "command": "vim-marks.create_mark_L",
+        "title": "vim-marks: create mark L"
+      },
+      {
+        "command": "vim-marks.create_mark_M",
+        "title": "vim-marks: create mark M"
+      },
+      {
+        "command": "vim-marks.create_mark_N",
+        "title": "vim-marks: create mark N"
+      },
+      {
+        "command": "vim-marks.create_mark_O",
+        "title": "vim-marks: create mark O"
+      },
+      {
+        "command": "vim-marks.create_mark_P",
+        "title": "vim-marks: create mark P"
+      },
+      {
+        "command": "vim-marks.create_mark_Q",
+        "title": "vim-marks: create mark Q"
+      },
+      {
+        "command": "vim-marks.create_mark_R",
+        "title": "vim-marks: create mark R"
+      },
+      {
+        "command": "vim-marks.create_mark_S",
+        "title": "vim-marks: create mark S"
+      },
+      {
+        "command": "vim-marks.create_mark_T",
+        "title": "vim-marks: create mark T"
+      },
+      {
+        "command": "vim-marks.create_mark_U",
+        "title": "vim-marks: create mark U"
+      },
+      {
+        "command": "vim-marks.create_mark_V",
+        "title": "vim-marks: create mark V"
+      },
+      {
+        "command": "vim-marks.create_mark_W",
+        "title": "vim-marks: create mark W"
+      },
+      {
+        "command": "vim-marks.create_mark_X",
+        "title": "vim-marks: create mark X"
+      },
+      {
+        "command": "vim-marks.create_mark_Y",
+        "title": "vim-marks: create mark Y"
+      },
+      {
+        "command": "vim-marks.create_mark_Z",
+        "title": "vim-marks: create mark Z"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_a",
+        "title": "vim-marks: jump to mark a"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_b",
+        "title": "vim-marks: jump to mark b"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_c",
+        "title": "vim-marks: jump to mark c"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_d",
+        "title": "vim-marks: jump to mark d"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_e",
+        "title": "vim-marks: jump to mark e"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_f",
+        "title": "vim-marks: jump to mark f"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_g",
+        "title": "vim-marks: jump to mark g"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_h",
+        "title": "vim-marks: jump to mark h"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_i",
+        "title": "vim-marks: jump to mark i"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_j",
+        "title": "vim-marks: jump to mark j"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_k",
+        "title": "vim-marks: jump to mark k"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_l",
+        "title": "vim-marks: jump to mark l"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_m",
+        "title": "vim-marks: jump to mark m"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_n",
+        "title": "vim-marks: jump to mark n"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_o",
+        "title": "vim-marks: jump to mark o"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_p",
+        "title": "vim-marks: jump to mark p"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_q",
+        "title": "vim-marks: jump to mark q"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_r",
+        "title": "vim-marks: jump to mark r"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_s",
+        "title": "vim-marks: jump to mark s"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_t",
+        "title": "vim-marks: jump to mark t"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_u",
+        "title": "vim-marks: jump to mark u"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_v",
+        "title": "vim-marks: jump to mark v"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_w",
+        "title": "vim-marks: jump to mark w"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_x",
+        "title": "vim-marks: jump to mark x"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_y",
+        "title": "vim-marks: jump to mark y"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_z",
+        "title": "vim-marks: jump to mark z"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_A",
+        "title": "vim-marks: jump to mark A"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_B",
+        "title": "vim-marks: jump to mark B"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_C",
+        "title": "vim-marks: jump to mark C"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_D",
+        "title": "vim-marks: jump to mark D"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_E",
+        "title": "vim-marks: jump to mark E"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_F",
+        "title": "vim-marks: jump to mark F"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_G",
+        "title": "vim-marks: jump to mark G"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_H",
+        "title": "vim-marks: jump to mark H"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_I",
+        "title": "vim-marks: jump to mark I"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_J",
+        "title": "vim-marks: jump to mark J"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_K",
+        "title": "vim-marks: jump to mark K"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_L",
+        "title": "vim-marks: jump to mark L"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_M",
+        "title": "vim-marks: jump to mark M"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_N",
+        "title": "vim-marks: jump to mark N"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_O",
+        "title": "vim-marks: jump to mark O"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_P",
+        "title": "vim-marks: jump to mark P"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_Q",
+        "title": "vim-marks: jump to mark Q"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_R",
+        "title": "vim-marks: jump to mark R"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_S",
+        "title": "vim-marks: jump to mark S"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_T",
+        "title": "vim-marks: jump to mark T"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_U",
+        "title": "vim-marks: jump to mark U"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_V",
+        "title": "vim-marks: jump to mark V"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_W",
+        "title": "vim-marks: jump to mark W"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_X",
+        "title": "vim-marks: jump to mark X"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_Y",
+        "title": "vim-marks: jump to mark Y"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_Z",
+        "title": "vim-marks: jump to mark Z"
       }
+
     ],
     "configuration" :[
         {
-            "title": "custom-marks",
+            "title": "vim-marks",
             "properties": {
-                "custom-marks.upper_case_for_local_marks": {
+                "vim-marks.upper_case_for_local_marks": {
                     "scope": "resource",
                     "type": "boolean",
                     "default" : true,
