@@ -2,6 +2,7 @@
   "name": "vim-marks",
   "displayName": "vim-marks",
   "description": "VIM-like marks",
+  "repository": { "url": "https://github.com/spacian/vim-marks" },
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.88.0"
