@@ -155,7 +155,7 @@ export class MarkHandler implements vscode.Disposable {
     }
 
     public async jumpToCharFromUser(): Promise<void> {
-        const char = await this.readCharsFromUser()
+        const char = await this.readCharsFromUser();
         if (char === undefined) { return; }
         this.jumpToChar(char);
         return;

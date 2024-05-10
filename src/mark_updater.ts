@@ -52,7 +52,7 @@ export class MarkUpdater {
         globalMarks: MarkMap,
         deletionEvent: vscode.FileDeleteEvent
     ): void {
-        let toDelete: string[] = []
+        let toDelete: string[] = [];
         for (const path of deletionEvent.files) {
             globalMarks.forEach((mark, key) => {
                 if (path.fsPath === mark.uri.fsPath) {
