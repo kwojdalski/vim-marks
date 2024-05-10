@@ -14,7 +14,7 @@ export class MarkHandler implements vscode.Disposable {
     private globalMarks: MarkMap;
     private localMarks: LocalMarks;
     private lowerCaseForGlobal: boolean =
-        vscode.workspace.getConfiguration('custom-marks')
+        vscode.workspace.getConfiguration('vim-marks')
         .get('upper_case_for_local_marks') as boolean;
 
     public constructor() {

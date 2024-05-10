@@ -4,7 +4,7 @@ import { getMarkHandler } from './mark_handler_singleton';
 export function activate(context: vscode.ExtensionContext): void {
 
 	let disposableCreateMark = vscode.commands.registerCommand(
-        "custom-marks.create_mark", () => {
+        "vim-marks.create_mark", () => {
             getMarkHandler(context).createMark(context);
             return;
         }
@@ -12,7 +12,7 @@ export function activate(context: vscode.ExtensionContext): void {
 	context.subscriptions.push(disposableCreateMark);
 
     let disposableJumpToMark = vscode.commands.registerCommand(
-        "custom-marks.jump_to_mark", () => {
+        "vim-marks.jump_to_mark", () => {
             getMarkHandler(context).jumpToCharFromUser();
             return;
         }
@@ -23,9 +23,10 @@ export function activate(context: vscode.ExtensionContext): void {
 
         const upper = String.fromCharCode(i);
         const lower = String.fromCharCode(i+32);
+        console.log(upper, lower)
 
         let disposableCreateUpper = vscode.commands.registerCommand(
-            "custom-marks.create_mark_" + upper, () => {
+            "vim-marks.create_mark_" + upper, () => {
                 getMarkHandler(context).createMark(context, upper);
                 return;
             }
@@ -33,7 +34,7 @@ export function activate(context: vscode.ExtensionContext): void {
         context.subscriptions.push(disposableCreateUpper);
 
         let disposableCreateLower = vscode.commands.registerCommand(
-            "custom-marks.create_mark_" + lower, () => {
+            "vim-marks.create_mark_" + lower, () => {
                 getMarkHandler(context).createMark(context, lower);
                 return;
             }
@@ -41,7 +42,7 @@ export function activate(context: vscode.ExtensionContext): void {
         context.subscriptions.push(disposableCreateLower);
 
         let disposableJumpToUpper = vscode.commands.registerCommand(
-            "custom-marks.jump_to_mark_" + upper, () => {
+            "vim-marks.jump_to_mark_" + upper, () => {
                 getMarkHandler(context).jumpToChar(upper);
                 return;
             }
@@ -49,7 +50,7 @@ export function activate(context: vscode.ExtensionContext): void {
         context.subscriptions.push(disposableJumpToUpper);
 
         let disposableJumpToLower = vscode.commands.registerCommand(
-            "custom-marks.jump_to_mark_" + lower, () => {
+            "vim-marks.jump_to_mark_" + lower, () => {
                 getMarkHandler(context).jumpToChar(lower);
                 return;
             }
