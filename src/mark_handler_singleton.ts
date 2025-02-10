@@ -5,7 +5,7 @@ let markHandler: MarkHandler | null = null;
 
 export function getMarkHandler(context: vscode.ExtensionContext): MarkHandler {
     if (markHandler === null) {
-        markHandler = new MarkHandler();
+        markHandler = new MarkHandler(context);
         context.subscriptions.push(markHandler);
     }
     return markHandler;

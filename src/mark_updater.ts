@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 import { Mark, LocalMarks, MarkMap } from "./interfaces";
+import { outputChannel } from "./extension";
 
 
 export class MarkUpdater {
@@ -36,15 +37,17 @@ export class MarkUpdater {
     }
 
     private static updateMarkTextDocumentChange(
-            mark: Mark,
-            changeEvent: vscode.TextDocumentContentChangeEvent,
+        mark: Mark,
+        changeEvent: vscode.TextDocumentContentChangeEvent,
     ): void {
+        outputChannel.appendLine(`Updating mark at ${mark.uri.fsPath}:${mark.row}:${mark.col}`);
         const rel = MarkUpdater.getMarkRelativity(mark, changeEvent.range);
         if (rel === 0) {
             MarkUpdater.updateMarkWithChangeAtLine(mark, changeEvent);
         } else if (rel === 1) {
             MarkUpdater.updateMarkWithChangeBeforeLine(mark, changeEvent);
         }
+        outputChannel.appendLine(`Mark updated to ${mark.row}:${mark.col}`);
         return;
     }
 

@@ -1,11 +1,13 @@
 import { Mark, LocalMarks, MarkMap } from "./interfaces";
 import { MarkUpdater } from "./mark_updater";
 import * as vscode from "vscode";
+import { outputChannel } from "./extension";
 
 const CHAR_CODE_UPPER_A: number = "A".charCodeAt(0);
 const CHAR_CODE_UPPER_Z: number = "Z".charCodeAt(0);
 const CHAR_CODE_LOWER_A: number = "a".charCodeAt(0);
 const CHAR_CODE_LOWER_Z: number = "z".charCodeAt(0);
+const STORAGE_KEY = 'vim-marks-data';
 
 export class MarkHandler implements vscode.Disposable {
     private textDocumentChangeListener: vscode.Disposable | null = null;
@@ -13,35 +15,97 @@ export class MarkHandler implements vscode.Disposable {
     private fileDeletionListener: vscode.Disposable | null = null;
     private globalMarks: MarkMap;
     private localMarks: LocalMarks;
-    private lowerCaseForGlobal: boolean =
-        vscode.workspace.getConfiguration('vim-marks')
-        .get('upper_case_for_local_marks') as boolean;
+    private context: vscode.ExtensionContext;
+    private lowerCaseForGlobal: boolean;
+    
+    public constructor(context: vscode.ExtensionContext) {
+        this.context = context;
+        this.lowerCaseForGlobal = vscode.workspace.getConfiguration('vim-marks')
+            .get('upper_case_for_local_marks') as boolean;
+        
+        
+        // Load saved marks
+        const savedData = this.context.globalState.get<{
+            globalMarks: [string, Mark][],
+            localMarks: [string, [string, Mark][]][],
+        }>(STORAGE_KEY);
 
-    public constructor() {
         this.globalMarks = new Map<string, Mark>();
         this.localMarks = new Map<string, Map<string, Mark>>();
-        this.textDocumentChangeListener =
-            vscode.workspace.onDidChangeTextDocument((change) => {
-                MarkUpdater.updateLocalMarksTextDocumentChange(this.localMarks, change);
-                MarkUpdater.updateGlobalMarksTextDocumentChange(this.globalMarks, change);
-                return;
-            }
-        );
-        this.fileRenameListener =
-            vscode.workspace.onDidRenameFiles((rename) => {
-                MarkUpdater.updateLocalMarksRename(this.localMarks, rename);
-                MarkUpdater.updateGlobalMarksRename(this.globalMarks, rename);
-                return;
-            }
-        );
-        this.fileDeletionListener =
-            vscode.workspace.onDidDeleteFiles((deletion) => {
-                MarkUpdater.updateLocalMarksFileDeletion(this.localMarks, deletion);
-                MarkUpdater.updateGlobalMarksFileDeletion(this.globalMarks, deletion);
-                return;
-            }
-        );
-        return;
+
+        if (savedData) {
+            outputChannel.appendLine(`Restoring saved marks - Global: ${savedData.globalMarks.length}, Local files: ${savedData.localMarks.length}`);
+            // Restore global marks
+            this.globalMarks = new Map(savedData.globalMarks.map(([key, mark]) => [
+                key,
+                { ...mark, uri: vscode.Uri.file(mark.uri.fsPath) }
+            ]));
+            outputChannel.appendLine('Global marks:');
+            this.globalMarks.forEach((mark, key) => {
+                outputChannel.appendLine(`  ${key}: ${mark.uri.fsPath}:${mark.row + 1}:${mark.col + 1}`);
+                this.registerGlobalMark(key, mark);
+            });
+            
+            // Restore local marks
+            savedData.localMarks.forEach(([fsPath, marks]) => {
+                const markMap = new Map(marks.map(([key, mark]) => [
+                    key,
+                    { ...mark, uri: vscode.Uri.parse(mark.uri.fsPath) }
+                ]));
+                this.localMarks.set(fsPath, markMap);
+                
+                outputChannel.appendLine(`Local marks for ${fsPath}:`);
+                markMap.forEach((mark, key) => {
+                    outputChannel.appendLine(`  ${key}: ${mark.row + 1}:${mark.col + 1}`);
+                });
+            });
+        } else {
+            outputChannel.appendLine('No saved marks found');
+        }
+
+        // Set up listeners
+        this.setupListeners();
+    }
+
+    private setupListeners(): void {
+        outputChannel.appendLine('Setting up mark listeners');
+        
+        this.textDocumentChangeListener = vscode.workspace.onDidChangeTextDocument((change) => {
+            // outputChannel.appendLine(`Document changed: ${change.document.uri.fsPath}`);
+            MarkUpdater.updateLocalMarksTextDocumentChange(this.localMarks, change);
+            MarkUpdater.updateGlobalMarksTextDocumentChange(this.globalMarks, change);
+            this.saveMarks();
+        });
+
+        this.fileRenameListener = vscode.workspace.onDidRenameFiles((rename) => {
+            outputChannel.appendLine(`Files renamed: ${rename.files.map(f => f.oldUri.fsPath + ' -> ' + f.newUri.fsPath).join(', ')}`);
+            MarkUpdater.updateLocalMarksRename(this.localMarks, rename);
+            MarkUpdater.updateGlobalMarksRename(this.globalMarks, rename);
+            this.saveMarks();
+        });
+
+        this.fileDeletionListener = vscode.workspace.onDidDeleteFiles((deletion) => {
+            // outputChannel.appendLine(`Files deleted: ${deletion.files.map(f => f.fsPath).join(', ')}`);
+            MarkUpdater.updateLocalMarksFileDeletion(this.localMarks, deletion);
+            MarkUpdater.updateGlobalMarksFileDeletion(this.globalMarks, deletion);
+            this.saveMarks();
+        });
+    }
+
+    private async saveMarks(): Promise<void> {
+        const dataToSave = {
+            globalMarks: Array.from(this.globalMarks.entries()),
+            localMarks: Array.from(this.localMarks.entries()).map(([fsPath, marks]) => [
+                fsPath,
+                Array.from(marks.entries())
+            ]),
+        };
+        try {
+            // const storageLocation = this.context.globalStoragePath;
+            // outputChannel.appendLine(`Saving marks`);
+            await this.context.globalState.update(STORAGE_KEY, dataToSave);
+        } catch (error) {
+        }
     }
 
     public dispose(): void {
@@ -73,6 +137,7 @@ export class MarkHandler implements vscode.Disposable {
     }
 
     private async jumpToMark(mark: Mark): Promise<void> {
+        outputChannel.appendLine(`Jumping to position - line: ${mark.row}, column: ${mark.col} in ${mark.uri.fsPath}`);
         let editor = await vscode.window.showTextDocument(mark.uri);
         if (editor.document.uri.path === mark.uri.path) {
             const jumpPosition = new vscode.Position(mark.row, mark.col);
@@ -123,22 +188,37 @@ export class MarkHandler implements vscode.Disposable {
     }
 
     public async createMark(
-        context: vscode.ExtensionContext, mark_id: string | undefined = undefined
+        context: vscode.ExtensionContext,
+        mark_id: string | undefined = undefined
     ): Promise<void> {
+        outputChannel.appendLine(`Creating mark${mark_id ? ` '${mark_id}'` : ''}`);
         const mark = this.makeMark();
-        if (mark === null) { return; }
+        if (mark === null) { 
+            outputChannel.appendLine('Failed to create mark - no active editor');
+            return; 
+        }
         if (mark_id === undefined) { mark_id = await this.readCharsFromUser(); }
-        if (mark_id === undefined ) { return; }
+        if (mark_id === undefined) { return; }
         const isLocal = this.markIdIsLocal(mark_id);
         if (isLocal === null) { return; }
         if (isLocal) { this.registerLocalMark(mark_id, mark); }
         else { this.registerGlobalMark(mark_id, mark); }
+        try {
+            await this.saveMarks();
+            outputChannel.appendLine(`Mark '${mark_id}' created at line ${mark.row}, column ${mark.col} in ${mark.uri.fsPath}`);
+        } catch (error) {
+            outputChannel.appendLine(`Error saving mark: ${error}`);
+        }
         return;
     }
 
     public async jumpToChar(char: string): Promise<void> {
+        outputChannel.appendLine(`Jumping to mark '${char}'`);
         const isLocal = this.markIdIsLocal(char);
-        if (isLocal === null) { return; }
+        if (isLocal === null) { 
+            outputChannel.appendLine(`Invalid mark character: ${char}`);
+            return; 
+        }
         if (isLocal) {
             const fsPath = vscode.window.activeTextEditor?.document.uri.fsPath;
             if (fsPath === undefined) { return; }
@@ -159,5 +239,45 @@ export class MarkHandler implements vscode.Disposable {
         if (char === undefined) { return; }
         this.jumpToChar(char);
         return;
+    }
+    public async showMarks(): Promise<void> {
+        let marksList = 'Global marks:\n';
+        
+        // Show global marks
+        this.globalMarks.forEach((mark, key) => {
+            marksList += `  ${key}: ${mark.uri.fsPath}:${mark.row + 1}:${mark.col + 1}\n`;
+        });
+        
+        // Show local marks for current file
+        const currentPath = vscode.window.activeTextEditor?.document.uri.fsPath;
+        if (currentPath && this.localMarks.has(currentPath)) {
+            marksList += '\nLocal marks (current file):\n';
+            this.localMarks.get(currentPath)!.forEach((mark, key) => {
+                marksList += `  ${key}: ${mark.row + 1}:${mark.col + 1}\n`;
+            });
+        }
+
+        // Show the marks in a dropdown list and handle selection
+        const markEntries = marksList.split('\n')
+            .filter(line => line.trim() !== '')
+            // Only include lines that start with spaces followed by a mark character and colon
+            .filter(line => /^\s+[a-zA-Z]:\s/.test(line));
+
+        const selected = await vscode.window.showQuickPick(
+            markEntries,
+            {
+                placeHolder: 'Select a mark to jump to',
+                canPickMany: false
+            }
+        );
+
+        if (selected) {
+            // Extract the mark character from the selected line
+            const match = selected.match(/^\s*([a-zA-Z]):/);
+            if (match) {
+                const markChar = match[1];
+                await this.jumpToChar(markChar);
+            }
+        }
     }
 };

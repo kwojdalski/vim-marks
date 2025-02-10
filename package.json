@@ -2,7 +2,9 @@
   "name": "vim-marks",
   "displayName": "vim-marks",
   "description": "VIM-like marks",
-  "repository": { "url": "https://github.com/spacian/vim-marks" },
+  "repository": {
+    "url": "https://github.com/spacian/vim-marks"
+  },
   "publisher": "spacian",
   "version": "0.0.1",
   "engines": {
@@ -438,23 +440,53 @@
       {
         "command": "vim-marks.jump_to_mark_Z",
         "title": "vim-marks: jump to mark Z"
+      },
+      {
+        "command": "vim-marks.delete_mark",
+        "title": "vim-marks: delete mark"
+      },
+      {
+        "command": "vim-marks.delete_all_marks",
+        "title": "vim-marks: delete all marks"
+      },
+      {
+        "command": "vim-marks.show_marks",
+        "title": "vim-marks: show marks"
+      },
+      {
+        "command": "vim-marks.mark_mode",
+        "title": "vim-marks: enter mark mode"
+      },
+      {
+        "command": "vim-marks.jump_mode", 
+        "title": "vim-marks: enter jump mode"
       }
-
     ],
-    "configuration" :[
-        {
-            "title": "vim-marks",
-            "properties": {
-                "vim-marks.upper_case_for_local_marks": {
-                    "scope": "resource",
-                    "type": "boolean",
-                    "default" : true,
-                    "description": "Use upper case letters for local marks instead of global marks."
-                }
-            }
+    "keybindings": [
+      {
+        "command": "vim-marks.mark_mode",
+        "key": "m",
+        "when": "editorTextFocus && !inQuickOpen"
+      },
+      {
+        "command": "vim-marks.jump_mode",
+        "key": "'",
+        "when": "editorTextFocus && !inQuickOpen"
+      }
+    ],
+    "configuration": [
+      {
+        "title": "vim-marks",
+        "properties": {
+          "vim-marks.upper_case_for_local_marks": {
+            "scope": "resource",
+            "type": "boolean",
+            "default": true,
+            "description": "Use upper case letters for local marks instead of global marks."
+          }
         }
+      }
     ]
-
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
@@ -465,14 +497,14 @@
     "test": "vscode-test"
   },
   "devDependencies": {
-    "@types/vscode": "^1.88.0",
     "@types/mocha": "^10.0.6",
     "@types/node": "18.x",
+    "@types/vscode": "^1.88.0",
     "@typescript-eslint/eslint-plugin": "^7.0.2",
     "@typescript-eslint/parser": "^7.0.2",
-    "eslint": "^8.56.0",
-    "typescript": "^5.3.3",
     "@vscode/test-cli": "^0.0.6",
-    "@vscode/test-electron": "^2.3.9"
+    "@vscode/test-electron": "^2.3.9",
+    "eslint": "^8.56.0",
+    "typescript": "^5.7.3"
   }
 }
