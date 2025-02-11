@@ -3,10 +3,10 @@
   "displayName": "vim-marks",
   "description": "VIM-like marks",
   "repository": {
-    "url": "https://github.com/spacian/vim-marks"
+    "url": "https://github.com/kwojdalski/vim-marks"
   },
-  "publisher": "spacian",
-  "version": "0.0.1",
+  "publisher": "kwojdalski",
+  "version": "0.1.0",
   "engines": {
     "vscode": "^1.88.0"
   },
@@ -24,6 +24,18 @@
       {
         "command": "vim-marks.jump_to_mark",
         "title": "vim-marks: jump to mark"
+      },
+      {
+        "command": "vim-marks.delete_mark",
+        "title": "vim-marks: delete mark"
+      },
+      {
+        "command": "vim-marks.delete_all_marks",
+        "title": "vim-marks: delete all marks"
+      },
+      {
+        "command": "vim-marks.escape",
+        "title": "vim-marks: escape mark mode"
       },
       {
         "command": "vim-marks.create_mark_a",
@@ -442,12 +454,212 @@
         "title": "vim-marks: jump to mark Z"
       },
       {
-        "command": "vim-marks.delete_mark",
-        "title": "vim-marks: delete mark"
+        "command": "vim-marks.delete_mark_a",
+        "title": "vim-marks: delete mark a"
       },
       {
-        "command": "vim-marks.delete_all_marks",
-        "title": "vim-marks: delete all marks"
+        "command": "vim-marks.delete_mark_b",
+        "title": "vim-marks: delete mark b"
+      },
+      {
+        "command": "vim-marks.delete_mark_c",
+        "title": "vim-marks: delete mark c"
+      },
+      {
+        "command": "vim-marks.delete_mark_d",
+        "title": "vim-marks: delete mark d"
+      },
+      {
+        "command": "vim-marks.delete_mark_e",
+        "title": "vim-marks: delete mark e"
+      },
+      {
+        "command": "vim-marks.delete_mark_f",
+        "title": "vim-marks: delete mark f"
+      },
+      {
+        "command": "vim-marks.delete_mark_g",
+        "title": "vim-marks: delete mark g"
+      },
+      {
+        "command": "vim-marks.delete_mark_h",
+        "title": "vim-marks: delete mark h"
+      },
+      {
+        "command": "vim-marks.delete_mark_i",
+        "title": "vim-marks: delete mark i"
+      },
+      {
+        "command": "vim-marks.delete_mark_j",
+        "title": "vim-marks: delete mark j"
+      },
+      {
+        "command": "vim-marks.delete_mark_k",
+        "title": "vim-marks: delete mark k"
+      },
+      {
+        "command": "vim-marks.delete_mark_l",
+        "title": "vim-marks: delete mark l"
+      },
+      {
+        "command": "vim-marks.delete_mark_m",
+        "title": "vim-marks: delete mark m"
+      },
+      {
+        "command": "vim-marks.delete_mark_n",
+        "title": "vim-marks: delete mark n"
+      },
+      {
+        "command": "vim-marks.delete_mark_o",
+        "title": "vim-marks: delete mark o"
+      },
+      {
+        "command": "vim-marks.delete_mark_p",
+        "title": "vim-marks: delete mark p"
+      },
+      {
+        "command": "vim-marks.delete_mark_q",
+        "title": "vim-marks: delete mark q"
+      },
+      {
+        "command": "vim-marks.delete_mark_r",
+        "title": "vim-marks: delete mark r"
+      },
+      {
+        "command": "vim-marks.delete_mark_s",
+        "title": "vim-marks: delete mark s"
+      },
+      {
+        "command": "vim-marks.delete_mark_t",
+        "title": "vim-marks: delete mark t"
+      },
+      {
+        "command": "vim-marks.delete_mark_u",
+        "title": "vim-marks: delete mark u"
+      },
+      {
+        "command": "vim-marks.delete_mark_v",
+        "title": "vim-marks: delete mark v"
+      },
+      {
+        "command": "vim-marks.delete_mark_w",
+        "title": "vim-marks: delete mark w"
+      },
+      {
+        "command": "vim-marks.delete_mark_x",
+        "title": "vim-marks: delete mark x"
+      },
+      {
+        "command": "vim-marks.delete_mark_y",
+        "title": "vim-marks: delete mark y"
+      },
+      {
+        "command": "vim-marks.delete_mark_z",
+        "title": "vim-marks: delete mark z"
+      },
+      {
+        "command": "vim-marks.delete_mark_A",
+        "title": "vim-marks: delete mark A"
+      },
+      {
+        "command": "vim-marks.delete_mark_B",
+        "title": "vim-marks: delete mark B"
+      },
+      {
+        "command": "vim-marks.delete_mark_C",
+        "title": "vim-marks: delete mark C"
+      },
+      {
+        "command": "vim-marks.delete_mark_D",
+        "title": "vim-marks: delete mark D"
+      },
+      {
+        "command": "vim-marks.delete_mark_E",
+        "title": "vim-marks: delete mark E"
+      },
+      {
+        "command": "vim-marks.delete_mark_F",
+        "title": "vim-marks: delete mark F"
+      },
+      {
+        "command": "vim-marks.delete_mark_G",
+        "title": "vim-marks: delete mark G"
+      },
+      {
+        "command": "vim-marks.delete_mark_H",
+        "title": "vim-marks: delete mark H"
+      },
+      {
+        "command": "vim-marks.delete_mark_I",
+        "title": "vim-marks: delete mark I"
+      },
+      {
+        "command": "vim-marks.delete_mark_J",
+        "title": "vim-marks: delete mark J"
+      },
+      {
+        "command": "vim-marks.delete_mark_K",
+        "title": "vim-marks: delete mark K"
+      },
+      {
+        "command": "vim-marks.delete_mark_L",
+        "title": "vim-marks: delete mark L"
+      },
+      {
+        "command": "vim-marks.delete_mark_M",
+        "title": "vim-marks: delete mark M"
+      },
+      {
+        "command": "vim-marks.delete_mark_N",
+        "title": "vim-marks: delete mark N"
+      },
+      {
+        "command": "vim-marks.delete_mark_O",
+        "title": "vim-marks: delete mark O"
+      },
+      {
+        "command": "vim-marks.delete_mark_P",
+        "title": "vim-marks: delete mark P"
+      },
+      {
+        "command": "vim-marks.delete_mark_Q",
+        "title": "vim-marks: delete mark Q"
+      },
+      {
+        "command": "vim-marks.delete_mark_R",
+        "title": "vim-marks: delete mark R"
+      },
+      {
+        "command": "vim-marks.delete_mark_S",
+        "title": "vim-marks: delete mark S"
+      },
+      {
+        "command": "vim-marks.delete_mark_T",
+        "title": "vim-marks: delete mark T"
+      },
+      {
+        "command": "vim-marks.delete_mark_U",
+        "title": "vim-marks: delete mark U"
+      },
+      {
+        "command": "vim-marks.delete_mark_V",
+        "title": "vim-marks: delete mark V"
+      },
+      {
+        "command": "vim-marks.delete_mark_W",
+        "title": "vim-marks: delete mark W"
+      },
+      {
+        "command": "vim-marks.delete_mark_X",
+        "title": "vim-marks: delete mark X"
+      },
+      {
+        "command": "vim-marks.delete_mark_Y",
+        "title": "vim-marks: delete mark Y"
+      },
+      {
+        "command": "vim-marks.delete_mark_Z",
+        "title": "vim-marks: delete mark Z"
       },
       {
         "command": "vim-marks.show_marks",
@@ -466,12 +678,542 @@
       {
         "command": "vim-marks.mark_mode",
         "key": "m",
-        "when": "editorTextFocus && !inQuickOpen"
+        "when": "editorTextFocus && vim.mode == 'Normal' && !inQuickOpen"
+      },
+      {
+        "command": "vim-marks.escape",
+        "key": "escape",
+        "when": "editorTextFocus && vim-marks.mode == 'mark' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.escape",
+        "key": "escape",
+        "when": "editorTextFocus && vim-marks.mode == 'jump' && vim.mode == 'Normal'"
       },
       {
         "command": "vim-marks.jump_mode",
         "key": "'",
-        "when": "editorTextFocus && !inQuickOpen"
+        "when": "editorTextFocus && vim.mode == 'Normal' && !inQuickOpen"
+      },
+      {
+        "command": "vim-marks.create_mark_a",
+        "key": "a",
+        "when": "editorTextFocus && vim-marks.mode == 'mark' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.create_mark_b",
+        "key": "b",
+        "when": "editorTextFocus && vim-marks.mode == 'mark' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.create_mark_c",
+        "key": "c",
+        "when": "editorTextFocus && vim-marks.mode == 'mark' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.create_mark_d",
+        "key": "d",
+        "when": "editorTextFocus && vim-marks.mode == 'mark' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.create_mark_e",
+        "key": "e",
+        "when": "editorTextFocus && vim-marks.mode == 'mark' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.create_mark_f",
+        "key": "f",
+        "when": "editorTextFocus && vim-marks.mode == 'mark' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.create_mark_g",
+        "key": "g",
+        "when": "editorTextFocus && vim-marks.mode == 'mark' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.create_mark_h",
+        "key": "h",
+        "when": "editorTextFocus && vim-marks.mode == 'mark' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.create_mark_i",
+        "key": "i",
+        "when": "editorTextFocus && vim-marks.mode == 'mark' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.create_mark_j",
+        "key": "j",
+        "when": "editorTextFocus && vim-marks.mode == 'mark' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.create_mark_k",
+        "key": "k",
+        "when": "editorTextFocus && vim-marks.mode == 'mark' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.create_mark_l",
+        "key": "l",
+        "when": "editorTextFocus && vim-marks.mode == 'mark' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.create_mark_m",
+        "key": "m",
+        "when": "editorTextFocus && vim-marks.mode == 'mark' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.create_mark_n",
+        "key": "n",
+        "when": "editorTextFocus && vim-marks.mode == 'mark' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.create_mark_o",
+        "key": "o",
+        "when": "editorTextFocus && vim-marks.mode == 'mark' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.create_mark_p",
+        "key": "p",
+        "when": "editorTextFocus && vim-marks.mode == 'mark' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.create_mark_q",
+        "key": "q",
+        "when": "editorTextFocus && vim-marks.mode == 'mark' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.create_mark_r",
+        "key": "r",
+        "when": "editorTextFocus && vim-marks.mode == 'mark' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.create_mark_s",
+        "key": "s",
+        "when": "editorTextFocus && vim-marks.mode == 'mark' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.create_mark_t",
+        "key": "t",
+        "when": "editorTextFocus && vim-marks.mode == 'mark' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.create_mark_u",
+        "key": "u",
+        "when": "editorTextFocus && vim-marks.mode == 'mark' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.create_mark_v",
+        "key": "v",
+        "when": "editorTextFocus && vim-marks.mode == 'mark' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.create_mark_w",
+        "key": "w",
+        "when": "editorTextFocus && vim-marks.mode == 'mark' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.create_mark_x",
+        "key": "x",
+        "when": "editorTextFocus && vim-marks.mode == 'mark' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.create_mark_y",
+        "key": "y",
+        "when": "editorTextFocus && vim-marks.mode == 'mark' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.create_mark_z",
+        "key": "z",
+        "when": "editorTextFocus && vim-marks.mode == 'mark' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.create_mark_A",
+        "key": "shift+a",
+        "when": "editorTextFocus && vim-marks.mode == 'mark' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.create_mark_B",
+        "key": "shift+b",
+        "when": "editorTextFocus && vim-marks.mode == 'mark' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.create_mark_C",
+        "key": "shift+c",
+        "when": "editorTextFocus && vim-marks.mode == 'mark' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.create_mark_D",
+        "key": "shift+d",
+        "when": "editorTextFocus && vim-marks.mode == 'mark' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.create_mark_E",
+        "key": "shift+e",
+        "when": "editorTextFocus && vim-marks.mode == 'mark' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.create_mark_F",
+        "key": "shift+f",
+        "when": "editorTextFocus && vim-marks.mode == 'mark' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.create_mark_G",
+        "key": "shift+g",
+        "when": "editorTextFocus && vim-marks.mode == 'mark' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.create_mark_H",
+        "key": "shift+h",
+        "when": "editorTextFocus && vim-marks.mode == 'mark' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.create_mark_I",
+        "key": "shift+i",
+        "when": "editorTextFocus && vim-marks.mode == 'mark' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.create_mark_J",
+        "key": "shift+j",
+        "when": "editorTextFocus && vim-marks.mode == 'mark' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.create_mark_K",
+        "key": "shift+k",
+        "when": "editorTextFocus && vim-marks.mode == 'mark' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.create_mark_L",
+        "key": "shift+l",
+        "when": "editorTextFocus && vim-marks.mode == 'mark' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.create_mark_M",
+        "key": "shift+m",
+        "when": "editorTextFocus && vim-marks.mode == 'mark' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.create_mark_N",
+        "key": "shift+n",
+        "when": "editorTextFocus && vim-marks.mode == 'mark' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.create_mark_O",
+        "key": "shift+o",
+        "when": "editorTextFocus && vim-marks.mode == 'mark' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.create_mark_P",
+        "key": "shift+p",
+        "when": "editorTextFocus && vim-marks.mode == 'mark' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.create_mark_Q",
+        "key": "shift+q",
+        "when": "editorTextFocus && vim-marks.mode == 'mark' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.create_mark_R",
+        "key": "shift+r",
+        "when": "editorTextFocus && vim-marks.mode == 'mark' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.create_mark_S",
+        "key": "shift+s",
+        "when": "editorTextFocus && vim-marks.mode == 'mark' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.create_mark_T",
+        "key": "shift+t",
+        "when": "editorTextFocus && vim-marks.mode == 'mark' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.create_mark_U",
+        "key": "shift+u",
+        "when": "editorTextFocus && vim-marks.mode == 'mark' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.create_mark_V",
+        "key": "shift+v",
+        "when": "editorTextFocus && vim-marks.mode == 'mark' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.create_mark_W",
+        "key": "shift+w",
+        "when": "editorTextFocus && vim-marks.mode == 'mark' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.create_mark_X",
+        "key": "shift+x",
+        "when": "editorTextFocus && vim-marks.mode == 'mark' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.create_mark_Y",
+        "key": "shift+y",
+        "when": "editorTextFocus && vim-marks.mode == 'mark' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.create_mark_Z",
+        "key": "shift+z",
+        "when": "editorTextFocus && vim-marks.mode == 'mark' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_a",
+        "key": "a",
+        "when": "editorTextFocus && vim-marks.mode == 'jump' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_b",
+        "key": "b",
+        "when": "editorTextFocus && vim-marks.mode == 'jump' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_c",
+        "key": "c",
+        "when": "editorTextFocus && vim-marks.mode == 'jump' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_d",
+        "key": "d",
+        "when": "editorTextFocus && vim-marks.mode == 'jump' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_e",
+        "key": "e",
+        "when": "editorTextFocus && vim-marks.mode == 'jump' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_f",
+        "key": "f",
+        "when": "editorTextFocus && vim-marks.mode == 'jump' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_g",
+        "key": "g",
+        "when": "editorTextFocus && vim-marks.mode == 'jump' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_h",
+        "key": "h",
+        "when": "editorTextFocus && vim-marks.mode == 'jump' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_i",
+        "key": "i",
+        "when": "editorTextFocus && vim-marks.mode == 'jump' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_j",
+        "key": "j",
+        "when": "editorTextFocus && vim-marks.mode == 'jump' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_k",
+        "key": "k",
+        "when": "editorTextFocus && vim-marks.mode == 'jump' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_l",
+        "key": "l",
+        "when": "editorTextFocus && vim-marks.mode == 'jump' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_m",
+        "key": "m",
+        "when": "editorTextFocus && vim-marks.mode == 'jump' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_n",
+        "key": "n",
+        "when": "editorTextFocus && vim-marks.mode == 'jump' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_o",
+        "key": "o",
+        "when": "editorTextFocus && vim-marks.mode == 'jump' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_p",
+        "key": "p",
+        "when": "editorTextFocus && vim-marks.mode == 'jump' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_q",
+        "key": "q",
+        "when": "editorTextFocus && vim-marks.mode == 'jump' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_r",
+        "key": "r",
+        "when": "editorTextFocus && vim-marks.mode == 'jump' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_s",
+        "key": "s",
+        "when": "editorTextFocus && vim-marks.mode == 'jump' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_t",
+        "key": "t",
+        "when": "editorTextFocus && vim-marks.mode == 'jump' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_u",
+        "key": "u",
+        "when": "editorTextFocus && vim-marks.mode == 'jump' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_v",
+        "key": "v",
+        "when": "editorTextFocus && vim-marks.mode == 'jump' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_w",
+        "key": "w",
+        "when": "editorTextFocus && vim-marks.mode == 'jump' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_x",
+        "key": "x",
+        "when": "editorTextFocus && vim-marks.mode == 'jump' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_y",
+        "key": "y",
+        "when": "editorTextFocus && vim-marks.mode == 'jump' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_z",
+        "key": "z",
+        "when": "editorTextFocus && vim-marks.mode == 'jump' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_A",
+        "key": "shift+a",
+        "when": "editorTextFocus && vim-marks.mode == 'jump' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_B",
+        "key": "shift+b",
+        "when": "editorTextFocus && vim-marks.mode == 'jump' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_C",
+        "key": "shift+c",
+        "when": "editorTextFocus && vim-marks.mode == 'jump' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_D",
+        "key": "shift+d",
+        "when": "editorTextFocus && vim-marks.mode == 'jump' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_E",
+        "key": "shift+e",
+        "when": "editorTextFocus && vim-marks.mode == 'jump' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_F",
+        "key": "shift+f",
+        "when": "editorTextFocus && vim-marks.mode == 'jump' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_G",
+        "key": "shift+g",
+        "when": "editorTextFocus && vim-marks.mode == 'jump' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_H",
+        "key": "shift+h",
+        "when": "editorTextFocus && vim-marks.mode == 'jump' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_I",
+        "key": "shift+i",
+        "when": "editorTextFocus && vim-marks.mode == 'jump' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_J",
+        "key": "shift+j",
+        "when": "editorTextFocus && vim-marks.mode == 'jump' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_K",
+        "key": "shift+k",
+        "when": "editorTextFocus && vim-marks.mode == 'jump' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_L",
+        "key": "shift+l",
+        "when": "editorTextFocus && vim-marks.mode == 'jump' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_M",
+        "key": "shift+m",
+        "when": "editorTextFocus && vim-marks.mode == 'jump' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_N",
+        "key": "shift+n",
+        "when": "editorTextFocus && vim-marks.mode == 'jump' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_O",
+        "key": "shift+o",
+        "when": "editorTextFocus && vim-marks.mode == 'jump' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_P",
+        "key": "shift+p",
+        "when": "editorTextFocus && vim-marks.mode == 'jump' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_Q",
+        "key": "shift+q",
+        "when": "editorTextFocus && vim-marks.mode == 'jump' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_R",
+        "key": "shift+r",
+        "when": "editorTextFocus && vim-marks.mode == 'jump' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_S",
+        "key": "shift+s",
+        "when": "editorTextFocus && vim-marks.mode == 'jump' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_T",
+        "key": "shift+t",
+        "when": "editorTextFocus && vim-marks.mode == 'jump' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_U",
+        "key": "shift+u",
+        "when": "editorTextFocus && vim-marks.mode == 'jump' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_V",
+        "key": "shift+v",
+        "when": "editorTextFocus && vim-marks.mode == 'jump' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_W",
+        "key": "shift+w",
+        "when": "editorTextFocus && vim-marks.mode == 'jump' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_X",
+        "key": "shift+x",
+        "when": "editorTextFocus && vim-marks.mode == 'jump' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_Y",
+        "key": "shift+y",
+        "when": "editorTextFocus && vim-marks.mode == 'jump' && vim.mode == 'Normal'"
+      },
+      {
+        "command": "vim-marks.jump_to_mark_Z",
+        "key": "shift+z",
+        "when": "editorTextFocus && vim-marks.mode == 'jump' && vim.mode == 'Normal'"
       }
     ],
     "configuration": [

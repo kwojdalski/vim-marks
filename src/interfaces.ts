@@ -8,3 +8,4 @@ export interface Mark {
 
 export type MarkMap = Map<string, Mark>;
 export type LocalMarks = Map<string, MarkMap>;
+

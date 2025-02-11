@@ -1,50 +1,101 @@
 import * as vscode from 'vscode';
 import { getMarkHandler } from './mark_handler_singleton';
+import { outputChannel } from './extension';
+// Track active mode and status bar
+let currentMode: 'mark' | 'jump' | null = null;
+let statusBarItem: vscode.StatusBarItem;
 
-let markMode = false;
-let jumpMode = false;
+// Function to exit the current mode
+function exitMode() {
+    currentMode = null;
+    statusBarItem.hide();
+    // Clear the mode context
+    vscode.commands.executeCommand('setContext', 'vim-marks.mode', null);
+}
+
+// Create commands for each letter
+function createMarkCommands(context: vscode.ExtensionContext) {
+    // Create mark commands for a-z and A-Z
+    for (let i = 0; i < 26; i++) {
+        const lowerChar = String.fromCharCode(97 + i); // a-z
+        const upperChar = String.fromCharCode(65 + i); // A-Z
+
+        // Register mark commands
+        context.subscriptions.push(
+            vscode.commands.registerCommand(`vim-marks.create_mark_${lowerChar}`, async () => {
+                await getMarkHandler(context).createMark(context, lowerChar);
+                exitMode();
+            }),
+            vscode.commands.registerCommand(`vim-marks.create_mark_${upperChar}`, async () => {
+                await getMarkHandler(context).createMark(context, upperChar);
+                exitMode();
+            }),
+            // Register jump commands
+            vscode.commands.registerCommand(`vim-marks.jump_to_mark_${lowerChar}`, async () => {
+                await getMarkHandler(context).jumpToChar(lowerChar);
+                exitMode();
+            }),
+            vscode.commands.registerCommand(`vim-marks.jump_to_mark_${upperChar}`, async () => {
+                await getMarkHandler(context).jumpToChar(upperChar);
+                exitMode();
+            })
+        );
+    }
+}
 
 export function activateMarkMode(context: vscode.ExtensionContext) {
+    // Create status bar item
+    statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left);
+    context.subscriptions.push(statusBarItem);
+
+    // Create all mark-related commands
+    createMarkCommands(context);
+
+    // Register escape command at the extension level
+    const escapeDisposable = vscode.commands.registerCommand('vim-marks.escape', () => {
+        if (currentMode) {
+            exitMode();
+        }
+    });
+    context.subscriptions.push(escapeDisposable);
+
+    // Register mark mode command
     const markModeDisposable = vscode.commands.registerCommand('vim-marks.mark_mode', async () => {
-        markMode = true;
+        if (currentMode) {
+            exitMode();
+        }
         
-        // Create a one-time listener for the next key press
-        const disposable = vscode.commands.registerCommand('type', async (args) => {
-            const char = args.text;
-            if (markMode) {
-                await getMarkHandler(context).createMark(context, char);
-                markMode = false;
-            }
-            disposable.dispose();
+        currentMode = 'mark';
+        // Set the mode context
+        await vscode.commands.executeCommand('setContext', 'vim-marks.mode', 'mark');
+        statusBarItem.text = "$(bookmark) Mark Mode: Press a key";
+        statusBarItem.show();
+
+        // Handle clicks outside or other focus changes
+        const focusDisposable = vscode.window.onDidChangeActiveTextEditor(() => {
+            exitMode();
         });
-        
-        // Reset mark mode if user performs another action
-        setTimeout(() => {
-            markMode = false;
-            disposable.dispose();
-        }, 1000);
+        context.subscriptions.push(focusDisposable);
     });
 
+    // Register jump mode command
     const jumpModeDisposable = vscode.commands.registerCommand('vim-marks.jump_mode', async () => {
-        jumpMode = true;
-        
-        // Create a one-time listener for the next key press
-        const disposable = vscode.commands.registerCommand('type', async (args) => {
-            const char = args.text;
-            if (jumpMode) {
-                await getMarkHandler(context).jumpToChar(char);
-                jumpMode = false;
-            }
-            disposable.dispose();
+        if (currentMode) {
+            exitMode();
+        }
+
+        currentMode = 'jump';
+        // Set the mode context
+        await vscode.commands.executeCommand('setContext', 'vim-marks.mode', 'jump');
+        statusBarItem.text = "$(arrow-right) Jump Mode: Press a key";
+        statusBarItem.show();
+
+        // Handle clicks outside or other focus changes
+        const focusDisposable = vscode.window.onDidChangeActiveTextEditor(() => {
+            exitMode();
         });
-        
-        // Reset jump mode if user performs another action
-        setTimeout(() => {
-            jumpMode = false;
-            disposable.dispose();
-        }, 1000);
+        context.subscriptions.push(focusDisposable);
     });
 
-    context.subscriptions.push(markModeDisposable);
-    context.subscriptions.push(jumpModeDisposable);
+    context.subscriptions.push(markModeDisposable, jumpModeDisposable);
 }

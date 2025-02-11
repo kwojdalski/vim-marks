@@ -29,6 +29,9 @@ export class MarkUpdater {
         map: MarkMap, changeEvent: vscode.TextDocumentChangeEvent
     ): void {
         map.forEach((mark, _) => {
+            if (mark.uri.fsPath !== changeEvent.document.uri.fsPath) {
+                return;
+            }
             for (const change of changeEvent.contentChanges) {
                 MarkUpdater.updateMarkTextDocumentChange(mark, change);
             }
@@ -42,6 +45,9 @@ export class MarkUpdater {
     ): void {
         outputChannel.appendLine(`Updating mark at ${mark.uri.fsPath}:${mark.row}:${mark.col}`);
         const rel = MarkUpdater.getMarkRelativity(mark, changeEvent.range);
+        // if (mark.uri.fsPath !== changeEvent.range.start.line) {
+        //     return;
+        // }
         if (rel === 0) {
             MarkUpdater.updateMarkWithChangeAtLine(mark, changeEvent);
         } else if (rel === 1) {

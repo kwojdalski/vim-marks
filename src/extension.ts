@@ -14,13 +14,25 @@ export function activate(context: vscode.ExtensionContext): void {
     
     // Activate mark mode handling
     activateMarkMode(context);
-	let disposableCreateMark = vscode.commands.registerCommand(
-        "vim-marks.create_mark", () => {
-            getMarkHandler(context).createMark(context);
+    let disposableCreateMark = vscode.commands.registerCommand(
+        "vim-marks.create_mark", async () => {
+            const char = await vscode.window.showInputBox({
+                placeHolder: "Enter a mark character (a-z, A-Z)",
+                validateInput: (value) => {
+                    if (!value) return "Please enter a character";
+                    if (value.length > 1) return "Please enter only one character";
+                    const char = value[0];
+                    if (!/^[a-zA-Z]$/.test(char)) return "Please enter a letter (a-z, A-Z)";
+                    return null;
+                }
+            });
+            if (char) {
+                await getMarkHandler(context).createMark(context, char);
+            }
             return;
         }
     );
-	context.subscriptions.push(disposableCreateMark);
+    context.subscriptions.push(disposableCreateMark);
 
     let disposableJumpToMark = vscode.commands.registerCommand(
         "vim-marks.jump_to_mark", () => {
@@ -28,46 +40,7 @@ export function activate(context: vscode.ExtensionContext): void {
             return;
         }
     );
-	context.subscriptions.push(disposableJumpToMark);
-
-    for (let i = 65; i <= 90; i++) {
-
-        const upper = String.fromCharCode(i);
-        const lower = String.fromCharCode(i+32);
-        console.log(upper, lower);
-
-        let disposableCreateUpper = vscode.commands.registerCommand(
-            "vim-marks.create_mark_" + upper, () => {
-                getMarkHandler(context).createMark(context, upper);
-                return;
-            }
-        );
-        context.subscriptions.push(disposableCreateUpper);
-
-        let disposableCreateLower = vscode.commands.registerCommand(
-            "vim-marks.create_mark_" + lower, () => {
-                getMarkHandler(context).createMark(context, lower);
-                return;
-            }
-        );
-        context.subscriptions.push(disposableCreateLower);
-
-        let disposableJumpToUpper = vscode.commands.registerCommand(
-            "vim-marks.jump_to_mark_" + upper, () => {
-                getMarkHandler(context).jumpToChar(upper);
-                return;
-            }
-        );
-        context.subscriptions.push(disposableJumpToUpper);
-
-        let disposableJumpToLower = vscode.commands.registerCommand(
-            "vim-marks.jump_to_mark_" + lower, () => {
-                getMarkHandler(context).jumpToChar(lower);
-                return;
-            }
-        );
-        context.subscriptions.push(disposableJumpToLower);
-    }
+    context.subscriptions.push(disposableJumpToMark);
     let disposableShowMarks = vscode.commands.registerCommand(
         "vim-marks.show_marks", () => {
             getMarkHandler(context).showMarks();
@@ -75,6 +48,44 @@ export function activate(context: vscode.ExtensionContext): void {
         }
     );
     context.subscriptions.push(disposableShowMarks);
+
+    let disposableDeleteMark = vscode.commands.registerCommand(
+        "vim-marks.delete_mark", () => {
+            getMarkHandler(context).deleteMark();
+            return;
+        }
+    );
+    context.subscriptions.push(disposableDeleteMark);
+
+    let disposableDeleteAllMarks = vscode.commands.registerCommand(
+        "vim-marks.delete_all_marks", () => {
+            getMarkHandler(context).deleteAllMarks();
+            return;
+        }
+    );
+    context.subscriptions.push(disposableDeleteAllMarks);
+
+    // Register individual mark deletion commands
+    for (let i = 65; i <= 90; i++) {
+        const upper = String.fromCharCode(i);
+        const lower = String.fromCharCode(i+32);
+
+        let disposableDeleteUpper = vscode.commands.registerCommand(
+            "vim-marks.delete_mark_" + upper, () => {
+                getMarkHandler(context).deleteMark(upper);
+                return;
+            }
+        );
+        context.subscriptions.push(disposableDeleteUpper);
+
+        let disposableDeleteLower = vscode.commands.registerCommand(
+            "vim-marks.delete_mark_" + lower, () => {
+                getMarkHandler(context).deleteMark(lower);
+                return;
+            }
+        );
+        context.subscriptions.push(disposableDeleteLower);
+    }
     return;
 }
 

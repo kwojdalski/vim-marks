@@ -72,9 +72,11 @@ export class MarkHandler implements vscode.Disposable {
         
         this.textDocumentChangeListener = vscode.workspace.onDidChangeTextDocument((change) => {
             // outputChannel.appendLine(`Document changed: ${change.document.uri.fsPath}`);
-            MarkUpdater.updateLocalMarksTextDocumentChange(this.localMarks, change);
-            MarkUpdater.updateGlobalMarksTextDocumentChange(this.globalMarks, change);
-            this.saveMarks();
+            if (change.document.uri.scheme === 'file'){ //&& change.document.uri.path === 'spacian.vim-marks-#1-Vim Marks') {
+                MarkUpdater.updateLocalMarksTextDocumentChange(this.localMarks, change);
+                MarkUpdater.updateGlobalMarksTextDocumentChange(this.globalMarks, change);
+                this.saveMarks();
+            }
         });
 
         this.fileRenameListener = vscode.workspace.onDidRenameFiles((rename) => {
@@ -241,27 +243,21 @@ export class MarkHandler implements vscode.Disposable {
         return;
     }
     public async showMarks(): Promise<void> {
-        let marksList = 'Global marks:\n';
+        // Create entries directly instead of using a string and splitting
+        const markEntries: string[] = [];
         
-        // Show global marks
+        // Add global marks
         this.globalMarks.forEach((mark, key) => {
-            marksList += `  ${key}: ${mark.uri.fsPath}:${mark.row + 1}:${mark.col + 1}\n`;
+            markEntries.push(`Global mark '${key}' at ${mark.uri.fsPath}:${mark.row + 1}:${mark.col + 1}`);
         });
         
-        // Show local marks for current file
+        // Add local marks for current file
         const currentPath = vscode.window.activeTextEditor?.document.uri.fsPath;
         if (currentPath && this.localMarks.has(currentPath)) {
-            marksList += '\nLocal marks (current file):\n';
             this.localMarks.get(currentPath)!.forEach((mark, key) => {
-                marksList += `  ${key}: ${mark.row + 1}:${mark.col + 1}\n`;
+                markEntries.push(`Local mark '${key}' at line ${mark.row + 1}, column ${mark.col + 1}`);
             });
         }
-
-        // Show the marks in a dropdown list and handle selection
-        const markEntries = marksList.split('\n')
-            .filter(line => line.trim() !== '')
-            // Only include lines that start with spaces followed by a mark character and colon
-            .filter(line => /^\s+[a-zA-Z]:\s/.test(line));
 
         const selected = await vscode.window.showQuickPick(
             markEntries,
@@ -272,12 +268,63 @@ export class MarkHandler implements vscode.Disposable {
         );
 
         if (selected) {
-            // Extract the mark character from the selected line
-            const match = selected.match(/^\s*([a-zA-Z]):/);
-            if (match) {
+            // Extract the mark character from between single quotes
+            const match = selected.match(/mark '(.)'/)
+            if (match && match[1]) {
                 const markChar = match[1];
                 await this.jumpToChar(markChar);
             }
+        }
+    }
+
+    public async deleteMark(mark_id: string | undefined = undefined): Promise<void> {
+        outputChannel.appendLine(`Deleting mark${mark_id ? ` '${mark_id}'` : ''}`);
+        if (mark_id === undefined) { mark_id = await this.readCharsFromUser(); }
+        if (mark_id === undefined) { return; }
+
+        const isLocal = this.markIdIsLocal(mark_id);
+        if (isLocal === null) { 
+            outputChannel.appendLine(`Invalid mark character: ${mark_id}`);
+            return; 
+        }
+
+        if (isLocal) {
+            const fsPath = vscode.window.activeTextEditor?.document.uri.fsPath;
+            if (fsPath === undefined) { return; }
+            const localMarkMap = this.localMarks.get(fsPath);
+            if (localMarkMap) {
+                const deleted = localMarkMap.delete(mark_id.toLowerCase());
+                if (deleted) {
+                    outputChannel.appendLine(`Deleted local mark '${mark_id}'`);
+                    if (localMarkMap.size === 0) {
+                        this.localMarks.delete(fsPath);
+                    }
+                }
+            }
+        } else {
+            const deleted = this.globalMarks.delete(mark_id.toLowerCase());
+            if (deleted) {
+                outputChannel.appendLine(`Deleted global mark '${mark_id}'`);
+            }
+        }
+
+        await this.saveMarks();
+    }
+
+    public async deleteAllMarks(): Promise<void> {
+        const confirmation = await vscode.window.showWarningMessage(
+            'Are you sure you want to delete all marks?',
+            { modal: true },
+            'Yes',
+            'No'
+        );
+
+        if (confirmation === 'Yes') {
+            outputChannel.appendLine('Deleting all marks');
+            this.globalMarks.clear();
+            this.localMarks.clear();
+            await this.saveMarks();
+            outputChannel.appendLine('All marks deleted');
         }
     }
 };
